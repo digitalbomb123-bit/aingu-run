@@ -332,7 +332,7 @@ class GameController extends ChangeNotifier {
     }
   }
 
-  void _gameOver() {
+  void _gameOver() async {
     isPlaying = false;
     isGameOver = true;
     _ticker?.stop();
@@ -342,8 +342,8 @@ class GameController extends ChangeNotifier {
     bgmPlayer.pause();
     sfxPlayer.play(AssetSource('sounds/scream.mp3'));
     
-    ScoreStorage.saveScore(playerName, score);
-    _initBestScore(); // Refresh scoreboard
+    await ScoreStorage.saveScore(playerName, score);
+    await _initBestScore(); // Refresh scoreboard
   }
 
   void _showMessage(String text, {double duration = 2.0}) {
